@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <button type="button" class="btn btn-primary">{{ msg }}</button>
+    <h1> The data below is coming from backend </h1>
+    <p> {{ msg }} </p>
+    <ul>
+      <li v-for="(item, index) in msg" :key="index">{{ item }} {{ index }}</li>
+
+    </ul>
   </div>
 </template>
 
@@ -20,6 +25,7 @@ export default {
       axios.get(path)
         .then((res) => {
           this.msg = res.data;
+          console.log('This is response data: ', res.data);
         })
         .catch((error) => {
           // eslint-disable-next-line
