@@ -4,9 +4,11 @@ from flask_pymongo import PyMongo
 
 from hms import create_app, db
 from hms.models import User
+from dotenv import load_dotenv
 
 
 app = create_app()
+load_dotenv()
 db.create_all()
 db.session.commit()
 
