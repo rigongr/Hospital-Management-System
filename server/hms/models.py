@@ -1,6 +1,10 @@
+import requests
+from requests.exceptions import RequestException
+from requests.models import HTTPError
 from . import db
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,3 +26,16 @@ class User(db.Model):
             "username": self.username,
             "password": self.password,
         }
+    
+    def user_register(uname: str, password: str):
+
+        if (uname and password):
+            user = User(username=uname, password=password)
+
+            try:
+                db.session.add(user)
+                db.session.commit()
+            except RequestException as error:
+                print(error)
+        else:
+            raise HTTPError
