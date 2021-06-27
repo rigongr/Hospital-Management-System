@@ -1,6 +1,5 @@
 from typing import List
-from flask import Flask, jsonify, Blueprint, json
-from flask_cors import CORS
+from flask import jsonify, Blueprint
 from hms import mongo, db
 from hms.models import User
 from logger.logger import write_log
