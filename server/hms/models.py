@@ -41,6 +41,37 @@ class Doctor(db.Model):
             print(error)
 
 
+class Pharmacy(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    phone = db.Column(db.Integer)
+    total_stock = db.Column(db.Integer, default=100)
+
+    def __init__(self, name, email, password, phone, total_stock):
+        self.total_stock = total_stock
+        self.email = email
+        self.name = name
+        self.phone = phone
+        self.password = password
+
+    def __repr__(self):
+        return f"""
+                Barnatorja ID: {self.id},
+                Barnatorja Name: {self.name},
+                Total Stock: {self.total_stock},
+                Email: {self.email},
+                Phone: {self.phone}
+        """
+    
+    def register(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except RequestException as error:
+            print(error)
+
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
 #     username = db.Column(db.String(50), unique=True, nullable=False)
