@@ -6,6 +6,7 @@ from hms import create_app, db
 
 
 app = create_app()
+db.drop_all()
 db.create_all()
 db.session.commit()
 

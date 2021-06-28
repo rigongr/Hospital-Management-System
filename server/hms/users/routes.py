@@ -1,7 +1,7 @@
 from typing import List
 from flask import jsonify, Blueprint
 from hms import mongo, db
-from hms.models import Doctor, Pharmacy
+from hms.models import Doctor, Pharmacy, Drug
 from logger.logger import write_log
 import random
 
@@ -21,9 +21,13 @@ def ping_pong():
         db.session.commit()
 
     pharmacy = Pharmacy(f"Pharmacy{random.randint(0, 999)}", f"pharmacy{str(random.randint(0, 99999))}@gmail.com", "testing123", random.randint(0, 123456),  random.randint(0, 2000))
+    pharmacy.register()
     doc = Doctor(f"Doctor{random.randint(0, 999)}", f"doctor{str(random.randint(0, 99999))}@gmail.com", "testing123", random.randint(0, 123456),  "Doctor Test")
     doc.register()
-    pharmacy.register()
+    drug = Drug('Ibuprofen', 0.25, 253, 1)
+    drug.register()
+    drug2 = Drug('Paracetamol', 0.50, 532, 1)
+    drug2.register()
     sql_user = Pharmacy.query.all() #Postgres Data
     
     keys = [] # MongoDB Data

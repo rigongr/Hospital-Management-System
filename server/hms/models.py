@@ -48,6 +48,7 @@ class Pharmacy(db.Model):
     password = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.Integer)
     total_stock = db.Column(db.Integer, default=100)
+    drugs = db.relationship('Drug', backref='pharmacy', lazy=True)
 
     def __init__(self, name, email, password, phone, total_stock):
         self.total_stock = total_stock
@@ -58,12 +59,18 @@ class Pharmacy(db.Model):
 
     def __repr__(self):
         return f"""
-                Barnatorja ID: {self.id},
-                Barnatorja Name: {self.name},
+                Pharmacy ID: {self.id},
+                Pharmacy Name: {self.name},
                 Total Stock: {self.total_stock},
                 Email: {self.email},
-                Phone: {self.phone}
+                Phone: {self.phone},
+                Drugs: {self.drugs},
         """
+
+    def id_to_name(id):
+        pharmacy = Pharmacy.query.filter_by(id=id).first()
+        pharmacy_name = pharmacy.name
+        return pharmacy_name
     
     def register(self):
         try:
@@ -71,6 +78,39 @@ class Pharmacy(db.Model):
             db.session.commit()
         except RequestException as error:
             print(error)
+
+
+class Drug(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    price_per_unit = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, default=1)
+    pharmacy_id = db.Column(db.Integer, db.ForeignKey('pharmacy.id'), default=1)
+
+
+    def __init__(self, name, price_per_unit, quantity, pharmacy_id):
+        self.name = name
+        self.price_per_unit = price_per_unit
+        self.quantity = quantity
+        self.pharmacy_id = pharmacy_id
+    
+    def __repr__(self):
+        id = self.pharmacy_id
+        pharmacy_name = Pharmacy.id_to_name(id)
+        return f"""
+                Drug name: {self.name},
+                Price per unit: {self.price_per_unit}$,
+                Quantity: {self.quantity},
+                Pharmacy: {pharmacy_name}
+        """
+
+    def register(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except RequestException as error:
+            print(error)
+
 
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
