@@ -1,9 +1,0 @@
-flask
-flask_cors
-flask_pymongo
-flask_sqlalchemy 
-flask_migrate
-python-dotenv
-dnspython
-psycopg2-binary
-requests

@@ -1,6 +1,0 @@
-version: '3.3'
-services:
-  python-container:
-    image: server:latest
-  db:
-    image: postgres

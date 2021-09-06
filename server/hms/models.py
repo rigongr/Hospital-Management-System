@@ -1,11 +1,5 @@
-from flask import app
-from flask.wrappers import Request
-import requests
 from requests.exceptions import RequestException
-from requests.models import HTTPError
 from . import db
-from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 
 
 
