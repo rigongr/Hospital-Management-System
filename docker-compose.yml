@@ -1,6 +1,22 @@
-version: '3.3'
-services:
-  python-container:
-    image: server:latest
-  db:
-    image: postgres
+
+frontend:
+  build: .
+  volumes:
+    - .:/frontend
+  ports:
+    - "8000:8000"
+backend:
+  build: .
+  command: python -u ./server/app.py
+  ports:
+    - "5000:5000"
+  volumes:
+    - .:/server/hms
+  links:
+    - db
+  environment: 
+    MONGODB_HOST: db
+
+db:
+  image: mongo:4.4
+    

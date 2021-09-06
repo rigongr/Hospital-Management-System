@@ -1,14 +1,11 @@
-FROM ubuntu:20.04 
-FROM python:3.8.5
+FROM node:lts-alpine
 
-WORKDIR /server
+RUN npm install --quiet --global vue-cli@2.9.3
 
-RUN python -m venv /opt/venv
+RUN mkdir /frontend
+WORKDIR /frontend
 
-COPY requirements.txt .
-
-RUN . /opt/venv/bin/activate && pip install -r requirements.txt
-
-COPY app.py .
-
-CMD . /opt/venv/bin/activate && exec python myapp.py
+FROM python:3.8
+ADD . /server/hms
+WORKDIR /server/hms
+RUN pip install -r requirements.txt

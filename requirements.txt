@@ -1,9 +1,8 @@
 flask
 flask_cors
-flask_pymongo
-flask_sqlalchemy 
-flask_migrate
+pymongo
 python-dotenv
+flask_bcrypt
 dnspython
-psycopg2-binary
 requests
+python-dotenv

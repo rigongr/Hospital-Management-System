@@ -1,14 +1,9 @@
-from flask import Flask, jsonify
 from flask_cors import CORS
-from flask_pymongo import PyMongo
 
-from hms import create_app, db
+from hms import create_app
 
 
 app = create_app()
-db.drop_all()
-db.create_all()
-db.session.commit()
 
 # configuration
 DEBUG = True
