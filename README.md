@@ -22,7 +22,10 @@ Hospital Management System built with Vue.js, Flask, Docker, MongoDB.
 <h5> Install front-end packages </h5>
 
 - Node.js & npm: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-- Vue.js:  After installing NPM, open your terminal and write $ **npm install vue**
+
+
+<h5> Install Docker </h5>
+https://docs.docker.com/get-docker/
 
 
 
@@ -32,21 +35,8 @@ Hospital Management System built with Vue.js, Flask, Docker, MongoDB.
 0. Install the needed packages from above.
 
 1. git clone https://github.com/rigongr/Hospital-Management-System.git   ---> In your terminal, in the folder you choose.
-
-                            ____________________________________________________
-                            ///////// UNTIL THE PROJECT IS DOCKERIZED \\\\\\\\\\
-                            ````````````````````````````````````````````````````
-
-~ START FRONT END ~
-
-1. Open one terminal, go to **frontend** folder of the project and run 'npm run build' and 'npm run serve' after build is done.
-
-
-~ START BACK END ~
-
-1. Open another terminal and locate to the root folder of the project. Run 'pip install -r requirements.txt'.
-
-2. Locate to **server** folder and run 'python app.py'.
-
+2. Go to root folder where Dockerfile is located, with your terminal.
+3. Input the command 'docker-compose build' and 'docker-compose up' after build is done.
+4. Enjoy.
 ```
 
