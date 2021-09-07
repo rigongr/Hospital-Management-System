@@ -4,8 +4,9 @@
 Hospital Management System built with Vue.js, Flask, Docker, MongoDB.
 
 
-
-
+DATABASE ARCHITECTURE
+https://files.slack.com/files-pri/T01TK7HV78R-F01TDSFR0SY/screenshot_1.png
+![DB-diagram](https://files.slack.com/files-pri/T01TK7HV78R-F01TDSFR0SY/screenshot_1.png)
 
 <h1> How to install the project </h1>
 
