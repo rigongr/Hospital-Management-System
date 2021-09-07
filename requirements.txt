@@ -6,3 +6,4 @@ flask_bcrypt
 dnspython
 requests
 python-dotenv
+flask_login
