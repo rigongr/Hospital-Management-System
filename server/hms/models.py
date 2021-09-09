@@ -1,6 +1,7 @@
 import os
 import uuid
-
+from typing import BaseModel
+from pydantic import BaseModel
 from datetime import date
 
 from flask import session
@@ -13,6 +14,8 @@ today = date.today()
 
 db = client.hms_db
 users_collection = db.users
+pharmacies_collection = db.pharmacies
+
 
 class UserBaseModel(UserMixin):
     
@@ -99,7 +102,24 @@ class Doctor(UserBaseModel):
     def save_to_mongo(self):
         users_collection.insert(self.json())
 
+
+# # # # # Pharmacy model # # # # #
+
+class Patient():
+    ...
+
+    def __init__(self):
+        ...
+
+    def __repr__(self):
+        ...
+    
+    
+
+    def register(self):
+        ...
         
+
 # # # # # Patient model # # # # #
 
 class Patient():
@@ -138,27 +158,6 @@ class Appointment():
 
     def id_to_name(id):
         ...
-    
-
-
-
-# # # # # Pharmacy model # # # # # 
-
-class Pharmacy():
-    ...
-
-    def __init__(self):
-        ...
-
-    def __repr__(self):
-        ...
-
-    def id_to_name(id):
-        ...
-    
-    def register(self):
-        ...
-
 
 
 # # # # #  Drug model  # # # # # 
