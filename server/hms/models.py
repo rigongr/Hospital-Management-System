@@ -1,7 +1,6 @@
 import os
 import uuid
-from typing import BaseModel
-from pydantic import BaseModel
+
 from datetime import date
 
 from flask import session

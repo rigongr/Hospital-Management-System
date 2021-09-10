@@ -5,7 +5,7 @@ from flask import jsonify, Blueprint, request
 from flask_login import login_user, current_user, logout_user, login_required
 
 from hms import client
-from hms.models import Doctor, Pharmacy, Drug, Patient, Appointment
+from hms.models import Doctor
 
 from logger.logger import write_log
 

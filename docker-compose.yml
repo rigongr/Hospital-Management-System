@@ -1,22 +1,25 @@
+version: '3.7'
 
-frontend:
-  build: .
-  volumes:
-    - .:/frontend
-  ports:
-    - "8000:8000"
-backend:
-  build: .
-  command: python -u ./server/app.py
-  ports:
-    - "5000:5000"
-  volumes:
-    - .:/server/hms
-  links:
-    - db
-  environment: 
-    MONGODB_HOST: db
+services:
 
-db:
-  image: mongo:4.4
-    
+  frontend:
+    build: .
+    volumes:
+      - .:/frontend
+    ports:
+      - "8000:8000"
+      
+  backend:
+    build: .
+    command: python -u ./server/app.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/server/hms
+    links:
+      - db
+    environment: 
+      MONGODB_HOST: db
+
+  db:
+    image: mongo:4.4
