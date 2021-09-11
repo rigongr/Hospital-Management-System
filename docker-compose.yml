@@ -1,25 +1,29 @@
-version: '3.7'
-
+version: '3'
 services:
+    front:
+      image: docker-tutorial/front
+      build:
+        context: ./
+        dockerfile: front.dockerfile
+      command: npm run dev
+      volumes:
+        - ./client:/app
+      ports:
+        - "8080:8080"
+    web:
+      image: docker-tutorial/web
+      command: python manage.py runserver
+      build:
+        context: ./
+        dockerfile: web.dockerfile
+      ports:
+        - "5000:5000"
+      volumes:
+        - .:/backend/hms
+      depends_on:
+        - db
+        
+    db:
+      image: mongo:4.4
 
-  frontend:
-    build: .
-    volumes:
-      - .:/frontend
-    ports:
-      - "8000:8000"
-      
-  backend:
-    build: .
-    command: python -u ./server/app.py
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/server/hms
-    links:
-      - db
-    environment: 
-      MONGODB_HOST: db
-
-  db:
-    image: mongo:4.4
+    
