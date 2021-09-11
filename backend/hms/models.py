@@ -6,7 +6,7 @@ from datetime import date
 from flask import session
 from flask_login import UserMixin
 
-from hms import client, bcrypt, login_manager
+from backend.hms import client, bcrypt, login_manager
 
 
 today = date.today()
