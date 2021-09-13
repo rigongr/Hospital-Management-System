@@ -21,10 +21,10 @@ def ping_pong():
     if request.method == 'POST':
         write_log('POST METHOD')
         write_log(request.get_json())
-        
+
     doc = Doctor("Doc1", "Filan Fisteku", 38349700700, "ff@gmail.com", "bajram curri", "filan123", "Heart Surgeon")
 
     doc.register("Doc1", "Filan Fisteku", 38349700700, "ff@gmail.com", "bajram curri", "filan123", "Heart Surgeon")
-    
+
     login_user(doc)
     return doc.json()

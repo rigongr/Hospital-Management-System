@@ -94,7 +94,8 @@ class Doctor(UserBaseModel):
             "speciality": self.speciality,
             "email": self.email,
             "password": self.password,
-            "speciality": self.speciality
+            "speciality": self.speciality,
+            "date_registered": self.date_registered
         }
 
 
