@@ -2,29 +2,73 @@ from os import write
 from typing import List, Optional
 
 from flask import jsonify, Blueprint, request
-from flask_login import login_user, current_user, logout_user, login_required
+from flask.wrappers import Response
+from flask_login import login_user, current_user
 
-from backend.hms import client
-from backend.hms.models import Doctor
-
+from backend.hms import client, bcrypt
+from backend.hms.models import Doctor, Patient
+from backend.utils.token_generator import generate_login_token
 from backend.logger.logger import write_log
 
 
 users = Blueprint('users', __name__)
 
 db = client.hms_db
-users_collection = db.users
+
+patients_collection = db.patients
 
 
-@users.route('/ping', methods=['GET', 'POST'])
-def ping_pong():
+@users.route('/register', methods=['POST'])
+def register():
     if request.method == 'POST':
-        write_log('POST METHOD')
-        write_log(request.get_json())
+        payload = request.get_json()
+        username = payload["username"]
+        full_name = payload["full_name"]
+        email = payload["email"]
+        phone = payload["phone"]
+        street_address = payload["street_address"]
+        pw = payload["password"]
+        pw.encode('utf-8')
+        password = bcrypt.generate_password_hash(pw).decode('utf-8')
+        find_user = Patient.get_by_email(email)
+        if find_user is None:
+            Patient.register(username, full_name, phone, email, street_address, password)
+            return {
+                "status_code": 201, 
+                "status": "Created", 
+                "detail": "Patient registered successfully. He may now continue to log in."
+            }
+        else:
+            return {
+                "status_code": 304, 
+                "status": "Not Modified", 
+                "detail": "This email already exists. Please, choose another one. "
+            }
+    else:
+        return {
+            "status_code": 304,
+            "status": "Method not allowed"
+        }
 
-    doc = Doctor("Doc1", "Filan Fisteku", 38349700700, "ff@gmail.com", "bajram curri", "filan123", "Heart Surgeon")
 
-    doc.register("Doc1", "Filan Fisteku", 38349700700, "ff@gmail.com", "bajram curri", "filan123", "Heart Surgeon")
-
-    login_user(doc)
-    return doc.json()
+@users.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        payload = request.get_json()
+        email = payload["email"]
+        password = payload["password"]
+        find_user = patients_collection.find_one({"email": email})
+        if Patient.login_valid(email, password) and find_user is not None:
+            write_log(current_user)
+            return jsonify({
+                "status": 'Success',
+                "status_code": 200,
+                "detail": "Log in successful.",
+                "access_token": generate_login_token(),
+            }), 200
+        else:
+            return {
+                "status_code": 404,
+                "status": "Error",
+                "detail": "Wrong email/password. Please, try again."
+            }, 404
