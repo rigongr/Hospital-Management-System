@@ -28,8 +28,8 @@ class UserBaseModel(UserMixin):
         self.full_name = full_name
         self.phone = phone
         self.email = email
-        self.street_address = None if street_address is None else str(street_address)
         self.password = password
+        self.street_address = None if street_address is None else str(street_address)
         self.date_registered = today
         self._id = uuid.uuid4().hex if _id is None else str(_id)
 
@@ -51,8 +51,8 @@ class UserBaseModel(UserMixin):
 # # # # # Doctor model # # # # # 
 class Doctor(UserBaseModel):
 
-    def __init__(self, username, full_name, phone, email, street_address, password, speciality, date_registered=None, _id=None):
-        super().__init__(username, full_name, phone, email, street_address, password, date_registered, _id)
+    def __init__(self, username, full_name, phone, email, password, street_address, speciality, date_registered=None, _id=None):
+        super().__init__(username, full_name, phone, email, password, street_address, date_registered, _id)
         self.speciality = speciality
 
 
@@ -79,10 +79,10 @@ class Doctor(UserBaseModel):
 
 
     @classmethod
-    def register(cls, username, full_name, phone, email, street_address, password, speciality):
+    def register(cls, username, full_name, phone, email, password, street_address, speciality):
         user = cls.get_by_email(email)
         if user is None:
-            new_user = cls(username, full_name, phone, email, street_address, password, speciality)
+            new_user = cls(username, full_name, phone, email, password, street_address, speciality)
             new_user.save_to_mongo()
             session['email'] = email
             return True
@@ -109,8 +109,8 @@ class Doctor(UserBaseModel):
 
 class Patient(UserBaseModel):
 
-    def __init__(self, username, full_name, phone, email, street_address, password, date_registered=None, _id=None):
-        super().__init__(username, full_name, phone, email, street_address, password, date_registered, _id)
+    def __init__(self, username, full_name, phone, email, password, street_address, date_registered=None, _id=None):
+        super().__init__(username, full_name, phone, email, password, street_address, date_registered, _id)
     
 
     @classmethod 
@@ -124,7 +124,6 @@ class Patient(UserBaseModel):
     def get_by_email(cls, email):
         user = patients_collection.find_one({"email" : email})
         if user is not None:
-            write_log(user)
             return cls(**user)
 
 
@@ -133,10 +132,10 @@ class Patient(UserBaseModel):
         
 
     @classmethod
-    def register(cls, username, full_name, phone, email, street_address, password):
+    def register(cls, username, full_name, phone, email, password, street_address):
         user = cls.get_by_email(email)
         if user is None:
-            new_user = cls(username, full_name, phone, email, street_address, password)
+            new_user = cls(username, full_name, phone, email, password, street_address)
             new_user.save_to_mongo()
             session['email'] = email
             return True
@@ -148,6 +147,7 @@ class Patient(UserBaseModel):
     def login_valid(email, password):
         verify_user = Patient.get_by_email(email)
         if verify_user is not None:
+            write_log(verify_user.street_address)
             return bcrypt.check_password_hash(verify_user.password, password)
         return False
 

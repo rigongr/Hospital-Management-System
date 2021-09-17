@@ -28,11 +28,10 @@ def register():
         phone = payload["phone"]
         street_address = payload["street_address"]
         pw = payload["password"]
-        pw.encode('utf-8')
         password = bcrypt.generate_password_hash(pw).decode('utf-8')
         find_user = Patient.get_by_email(email)
         if find_user is None:
-            Patient.register(username, full_name, phone, email, street_address, password)
+            Patient.register(username, full_name, phone, email, password, street_address)
             return {
                 "status_code": 201, 
                 "status": "Created", 
@@ -59,7 +58,6 @@ def login():
         password = payload["password"]
         find_user = patients_collection.find_one({"email": email})
         if Patient.login_valid(email, password) and find_user is not None:
-            write_log(current_user)
             return jsonify({
                 "status": 'Success',
                 "status_code": 200,
