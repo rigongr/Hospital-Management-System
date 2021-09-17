@@ -20,8 +20,8 @@
                 </span>
               </div>
               <input
-                v-model="name"
-                id="name"
+                v-model="full_name"
+                id="full_name"
                 class="form-control"
                 placeholder="Name"
                 type="text"
@@ -41,6 +41,36 @@
                 class="form-control"
                 placeholder="Username"
                 type="text"
+              />
+            </div>
+          </div>
+           <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-user"></i>
+                </span>
+              </div>
+              <input
+                v-model="street_address"
+                id="street_address"
+                placeholder="street_address"
+                class="form-control"
+              />
+            </div>
+          </div>
+           <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-lock"></i>
+                </span>
+              </div>
+              <input
+                v-model="phone"
+                id="phone"
+                placeholder="phone"
+                class="form-control"
               />
             </div>
           </div>
@@ -111,13 +141,15 @@ export default {
       username: "",
       email: "",
       password: "",
-      name: "",
+      full_name: "",
+      street_address: "",
+      phone: "",
       admin: false,
       error: "",
       usernameError: true,
       passwordError: true,
       emailError: true,
-      nameError: true,
+      full_nameError: true,
     };
   },
 
@@ -168,10 +200,12 @@ export default {
     onSignup(evt) {
       evt.preventDefault();
       const data = {
-        name: this.name,
+        full_name: this.full_name,
         username: this.username,
         email: this.email,
         password: this.password,
+        street_address: this.street_address,
+        phone: this.phone,
       };
 
       this.signup(data);

@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.14.0",
+    "chokidar": "^3.5.2",
     "core-js": "^3.6.4",
     "mdbvue": "^6.7.1",
     "vue": "^2.6.11",
