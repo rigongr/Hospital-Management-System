@@ -3,7 +3,6 @@ import datetime
 import os
 import uuid
 
-from datetime import date
 
 from flask import session
 from flask_login import UserMixin
@@ -11,8 +10,8 @@ from flask_login import UserMixin
 from backend.hms import client, bcrypt, login_manager
 
 
-today = datetime.datetime.today()
-
+today_skeleton_format = datetime.datetime.today()
+today = today_skeleton_format.strftime("%b %d %Y %H:%M:%S")
 
 db = client.hms_db
 
