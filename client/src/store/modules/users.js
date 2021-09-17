@@ -88,7 +88,7 @@ const actions = {
   },
   signup({ commit }, data) {
     axios
-      .post(`http://localhost:5000/api/users/signup`, data)
+      .post(`http://localhost:8080/api/users/register`, data)
       .then((response) => {
         setLocalStorage(response.data);
         commit("setUser", response.data);
