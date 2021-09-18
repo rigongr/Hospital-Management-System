@@ -83,6 +83,13 @@ const actions = {
       });
   },
   login({ commit }, data) {
+    axios
+      .post(`http://192.168.0.100:5000/login`, data)
+      .then((response) => {
+        console.log(response.data.access_token);
+        setLocalStorage(response.data);
+        commit("setUser", response.data);
+      });
     setLocalStorage(data);
     commit("setUser", data);
   },

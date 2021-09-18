@@ -10,7 +10,7 @@
         </p>
         <h4 class="card-title text-center mb-4 mt-1">Sign Up</h4>
         <hr />
-        <p class="text-success text-center">{{ error }}</p>
+        <p class="text-danger text-center">{{ error }}</p>
         <form>
           <div class="form-group">
             <div class="input-group">
@@ -132,7 +132,7 @@
 <script>
 import router from "../../router";
 import { mapActions, mapGetters } from "vuex";
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "SignUp",
@@ -159,6 +159,7 @@ export default {
     this.validateUsername();
     this.validateEmail();
     this.validatePassword();
+
   },
   methods: {
     ...mapActions(["signup"]),
@@ -200,16 +201,26 @@ export default {
     onSignup(evt) {
       evt.preventDefault();
       const data = {
-        full_name: this.full_name,
         username: this.username,
-        email: this.email,
-        password: this.password,
-        street_address: this.street_address,
+        full_name: this.full_name,
         phone: this.phone,
+        email: this.email,
+        street_address: this.street_address,
+        password: this.password,
       };
-
-      this.signup(data);
-      router.replace({ name: "product" });
+      axios
+        .post(`http://192.168.0.100:5000/register`, data)
+        .then((response) => {
+          if (response.data.status_code == 201) {
+            this.signup(data);
+            router.replace({ name: "login" });
+          }
+        })
+        .catch((err) => {
+          if (err.response) {
+            this.error = err.response.data.detail
+          }
+        });
     },
   },
 };

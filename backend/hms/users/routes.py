@@ -36,13 +36,13 @@ def register():
                 "status_code": 201, 
                 "status": "Created", 
                 "detail": "Patient registered successfully. He may now continue to log in."
-            }
+            }, 200
         else:
             return {
                 "status_code": 304, 
                 "status": "Not Modified", 
                 "detail": "This email already exists. Please, choose another one. "
-            }
+            }, 404
     else:
         return {
             "status_code": 304,

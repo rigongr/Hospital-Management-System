@@ -6,7 +6,7 @@
       </p>
       <h4 class="card-title text-center mb-4 mt-1">Log In</h4>
       <hr />
-      <p class="text text-center">{{ error }}</p>
+      <p class="text text-danger text-center">{{ error }}</p>
       <form>
         <div class="form-group">
           <div class="input-group">
@@ -112,14 +112,15 @@ export default {
         password: this.password,
       };
       axios
-        .post(`http://localhost:5000/api/users/login`, data)
+        .post(`http://192.168.0.100:5000/login`, data)
         .then((response) => {
           this.login(response.data);
           router.replace({ name: "product" });
         })
         .catch((err) => {
-          console.log(err);
-          this.error = "Email or password is incorrect";
+          if (err.response) {
+            this.error = err.response.data.detail
+          }
         });
     },
   },
