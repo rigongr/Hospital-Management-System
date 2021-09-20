@@ -84,7 +84,7 @@ const actions = {
   },
   login({ commit }, data) {
     axios
-      .post(`http://192.168.0.100:5000/login`, data)
+      .post(`http://0.0.0.0:5000/login`, data)
       .then((response) => {
         console.log(response.data.access_token);
         setLocalStorage(response.data);
@@ -95,7 +95,7 @@ const actions = {
   },
   signup({ commit }, data) {
     axios
-      .post(`http://192.168.0.100:5000/register`, data)
+      .post(`http://0.0.0.0:5000/register`, data)
       .then((response) => {
         setLocalStorage(response.data);
         commit("setUser", response.data);

@@ -112,7 +112,7 @@ export default {
         password: this.password,
       };
       axios
-        .post(`http://192.168.0.100:5000/login`, data)
+        .post(`http://0.0.0.0:5000/login`, data)
         .then((response) => {
           this.login(response.data);
           router.replace({ name: "product" });
