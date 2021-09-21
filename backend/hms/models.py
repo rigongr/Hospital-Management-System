@@ -18,6 +18,7 @@ db = client.hms_db
 patients_collection = db.patients
 doctors_collection = db.doctors
 pharmacies_collection = db.pharmacies
+departments_collection = db.departments
 
 
 class UserBaseModel(UserMixin):
@@ -216,6 +217,62 @@ class Drug():
 
     def register(self):
         ...
+
+
+class Department():
+
+    def __init__ (self, name, _id=None):
+        self.name = name
+        self._id = _id if id is not None else str(_id)
+
+    @classmethod
+    def register(cls, name):
+        department = cls.get_by_name(name)
+        if department is None:
+            new_department = cls(name)
+            new_department.save_to_mongo()
+            return True
+        else:
+            return {
+                "status": "Not Modified",
+                "status_code": "302",
+                "detail": "Department already exists."
+            }
+
+
+    @classmethod
+    def get_by_name(cls, name):
+        department = departments_collection.find_one({"name": name})
+        if department is not None:
+            return cls(**department)
+
+
+    def list_all_departments():
+        departments = {}
+        all_departments = departments_collection.find()
+        for department in all_departments:
+            departments.append({"name": department})
+        if len(department) == 0:
+            return {
+                "status": "Success",
+                "status_code": "304",
+                "detail": "No departments are avilable."
+            }
+        return {
+            "status": "Success",
+            "status_code": 200,
+            "departments": departments
+        }
+
+
+    def json(self):
+        return {
+            "name": self.name
+        }
+
+
+    def save_to_mongo(self):
+        departments_collection.insert(self.json())
 
 
 @login_manager.user_loader
