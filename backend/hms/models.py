@@ -162,62 +162,8 @@ class Patient(UserBaseModel):
             "date_registered": self.date_registered
         }
 
-        
-# # # # # Pharmacy model # # # # #
 
-class Pharmacy():
-    ...
-
-    def __init__(self):
-        ...
-
-    def __repr__(self):
-        ...
-    
-    
-
-    def register(self):
-        ...
-
-
-
-# # # # # Appointment model # # # # #
-
-class Appointment():
-    ...
-
-
-    def __init__(self):
-        ...
-
-
-    def __repr__(self):
-        ...
-
-
-    def register(self):
-        ...
-    
-
-    def id_to_name(id):
-        ...
-
-
-# # # # #  Drug model  # # # # # 
-
-class Drug():
-    ...
-
-
-    def __init__(self):
-        ...
-    
-    def __repr__(self):
-        ...
-
-    def register(self):
-        ...
-
+ ##### DEPARTMENT MODEL ######       
 
 class Department():
 
@@ -273,6 +219,62 @@ class Department():
 
     def save_to_mongo(self):
         departments_collection.insert(self.json())
+
+
+# # # # # Pharmacy model # # # # #
+
+class Pharmacy():
+    ...
+
+    def __init__(self):
+        ...
+
+    def __repr__(self):
+        ...
+    
+    
+
+    def register(self):
+        ...
+
+
+
+# # # # # Appointment model # # # # #
+
+class Appointment():
+    ...
+
+
+    def __init__(self):
+        ...
+
+
+    def __repr__(self):
+        ...
+
+
+    def register(self):
+        ...
+    
+
+    def id_to_name(id):
+        ...
+
+
+# # # # #  Drug model  # # # # # 
+
+class Drug():
+    ...
+
+
+    def __init__(self):
+        ...
+    
+    def __repr__(self):
+        ...
+
+    def register(self):
+        ...
 
 
 @login_manager.user_loader

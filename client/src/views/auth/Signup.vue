@@ -209,7 +209,7 @@ export default {
         password: this.password,
       };
       axios
-        .post(`http://192.168.0.100:5000/register`, data)
+        .post(`http://172.19.0.4:5000/register`, data)
         .then((response) => {
           if (response.data.status_code == 201) {
             this.signup(data);
