@@ -11,7 +11,7 @@
         </b-card>
         <br />
         <b-card>
-          <h3>Tickets</h3>
+          <h3>Patients</h3>
           <h1>{{tickets}}</h1>
         </b-card>
       </b-col>
@@ -28,7 +28,7 @@
       </b-col>
       <b-col style="margin-right: 20px">
         <b-card>
-          <h3>Products</h3>
+          <h3>Doctors</h3>
           <h1>{{products}}</h1>
         </b-card>
         <br />
